@@ -32,7 +32,7 @@ class ApplicationController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
+        $validated = $request->validate([
             'company'       => 'required|max:255',
             'role'          => 'required|max:255',
             'status'        => 'required|in:applied,interview,offer,rejected',
@@ -41,14 +41,7 @@ class ApplicationController extends Controller
             'notes'         => 'nullable',
         ]);
 
-        Application::create([
-            'company'        => $request->company,
-            'role'           => $request->role,
-            'status'         => $request->status,
-            'applied_date'   => $request->applied_date,
-            'salary_range'   => $request->salary_range,
-            'notes'          => $request->notes,
-        ]);
+        Application::create($validated);
 
         return redirect()->route('applications.index');
     }
@@ -58,30 +51,45 @@ class ApplicationController extends Controller
      */
     public function show(string $id)
     {
-        return "ApplicationController@show - Show application ID:" . $id;
+        $application = Application::findOrFail($id);
+
+        return view('applications.show', compact('application'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Application $application)
     {
-        return "ApplicationController@edit - Edit application ID:" .$id;
+        return view('applications.edit', compact('application'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Application $application)
     {
-        return "ApplicationController@update - Update application ID:" .$id;
+        $validated = $request->validate([
+            'company'           => 'required|max:255',
+            'role'              => 'required|max:255',
+            'status'            => 'required|in:applied,interview,offer,rejected',
+            'applied_date'      => 'required|date',
+            'salary_range'      => 'nullable|max:255',
+            'notes'             => 'nullable',
+        ]);
+
+        $application->update($validated);
+
+        return redirect()->route('applications.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Application $application)
     {
-        return "ApplicationController@destroy - Delete application ID:" .$id;
+        $application->delete();
+
+        return redirect()->route('applications.index');
     }
 }
