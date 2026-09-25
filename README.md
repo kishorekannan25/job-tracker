@@ -1,58 +1,80 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Job Tracker
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A web app for tracking job applications — which companies you applied to, what stage each
+application is at, and what you need to follow up on. Built with Laravel 13.
 
-## About Laravel
+![Job Tracker screenshot](docs/screenshot.png)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Full CRUD** — add, view, edit and delete job applications
+- **Status tracking** — applied / interview / offer / rejected, with colour-coded badges
+- **Search and filter** — search by company name, filter by status, or combine both
+- **Server-side validation** — with inline error messages and input preserved on failure
+- **Flash messages** — confirmation after every create, update and delete
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Each application records the company, role, status, date applied, salary range and free-text notes.
 
-## Learning Laravel
+## Built with
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Laravel 13** (PHP 8.3)
+- **MySQL**
+- **Blade** templates with a shared layout and a reusable form partial
+- **Tailwind CSS 4**, compiled with Vite
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Running it locally
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+**Requirements:** PHP 8.3+, Composer, MySQL, Node.js
 
 ```bash
-composer require laravel/boost --dev
+# 1. Clone and install PHP dependencies
+git clone https://github.com/kishorekannan25/job-tracker.git
+cd job-tracker
+composer install
 
-php artisan boost:install
+# 2. Set up the environment file
+cp .env.example .env
+php artisan key:generate
+
+# 3. Create the database, then set these in .env:
+#    DB_DATABASE=job_tracker
+#    DB_USERNAME=root
+#    DB_PASSWORD=
+php artisan migrate
+
+# 4. Install front-end dependencies and start the asset build
+npm install
+npm run dev
+
+# 5. Serve the app (in a second terminal)
+php artisan serve
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Then open http://localhost:8000/applications.
 
-## Contributing
+## Project structure
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Path | What's in it |
+| --- | --- |
+| `app/Models/Application.php` | The Eloquent model |
+| `app/Http/Controllers/ApplicationController.php` | All seven RESTful actions |
+| `database/migrations/` | The `applications` table schema |
+| `resources/views/layouts/app.blade.php` | Shared page shell |
+| `resources/views/applications/` | Index, show, create and edit views |
+| `resources/views/applications/partials/` | The form fields, shared by create and edit |
+| `routes/web.php` | A single `Route::resource` definition |
 
-## Code of Conduct
+## About this project
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+I built this to learn Laravel by writing it myself rather than copying tutorials. Along the way
+I worked through routing and RESTful resource controllers, Eloquent models and migrations, Blade
+layouts and partials, form handling and CSRF, HTTP method spoofing for PUT and DELETE, server-side
+validation with old-input repopulation, route model binding, query building with `when()`, and
+styling with Tailwind.
 
-## Security Vulnerabilities
+## Possible next steps
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- User accounts, so each person sees only their own applications
+- A dashboard with counts per status
+- File uploads for CVs and cover letters
+- Reminders for follow-up dates
