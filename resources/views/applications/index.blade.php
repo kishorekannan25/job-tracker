@@ -14,6 +14,29 @@
         </p>
     @endif
 
+    <form action="{{ route('applications.index') }}" method="GET" class="mb-4 flex gap-2">
+        <input type="text" name="search" value="{{ request('search') }}"
+            placeholder="Search company..."
+            class="flex-1 border border-gray-300 rounded px-3 py-2">
+
+    <select name="status" class="border border-gray-300 rounded px-3 py-2">
+        <option value=""> All statuses</option>
+        <option value="applied" @selected(request ('status') === 'applied')>Applied</option>
+        <option value="interview" @selected(request ('status') === 'interview')>Interview</option>
+        <option value="offer" @selected(request ('status') === 'offer')>Offer</option>
+        <option value="rejected" @selected(request ('status') === 'rejected')>Rejected</option>
+    </select>
+
+    <button type="submit" class="bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded">
+        Search
+    </button>
+
+    @if (request('search') || request('status'))
+        <a href="{{ route('applications.index') }}"
+            class="px-4 py-2 text-gray-600 hover:underline">Clear</a>
+    @endif
+</form>
+
     <div class="flex justify-between items-center mb-4">
         <p class="text-gray-600">Total: {{ count($applications) }} applications</p>
         <a href="{{ route('applications.create') }}"

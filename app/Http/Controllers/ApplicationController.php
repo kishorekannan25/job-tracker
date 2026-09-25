@@ -10,12 +10,19 @@ class ApplicationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $applications = Application::all(); //get all applications from db into collection 
-        return view('applications.index',compact('applications')); /** render this view 
-        * info: compact = pass $applications variable into the view
-        */
+        $applications = Application::query()
+            ->when($request->filled('search'), function ($query) use ($request){
+                $query->where('company', 'like', '%' . $request->search . '%');
+        })
+
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->status);
+        })
+        ->get();
+
+    return view('applications.index', compact('applications'));
     }
 
     /**
