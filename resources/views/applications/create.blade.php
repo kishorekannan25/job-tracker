@@ -1,60 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Application</title>
-</head>
-<body>
-    <h1>Add New Application</h1>
+@extends('layouts.app')
 
-    @if ($errors->any())
-        <ul style="color: red;">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+@section('title', 'Add Application')
 
-    <form action="{{ route('applications.store') }}" method="POST">
+@section('content')
+
+<div class="max-w-xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-4">Add New Application</h1>
+
+    <form action="{{ route('applications.store') }}" method="POST"
+          class="bg-white rounded shadow p-6">
         @csrf
 
-        <p>
-            <label>Company</label><br>
-            <input type="text" name="company" value="{{ old('company') }}">
-        </p>
+        @include('applications.partials.form-fields')
 
-        <p>
-            <label>Role</label><br>
-            <input type="text" name="role" value="{{ old('role') }}">
-        </p>
-
-        <p>
-            <label>Status</label><br>
-            <select name="status">
-                <option value="applied" @selected(old('status') == 'applied')>Applied</option>
-                <option value="interview" @selected(old('status') == 'interview')>Interview</option>
-                <option value="offer" @selected(old('status') == 'offer')>Offer</option>
-                <option value="rejected" @selected(old('status') == 'rejected')>Rejected</option>
-            </select>
-        </p>
-
-        <p>
-            <label>Applied Date</label><br>
-            <input type="date" name="applied_date" value="{{ old('applied_date') }}">
-        </p>
-
-        <p> 
-            <label>Salary Range</label><br>
-            <input type="text" name="salary_range" value="{{ old('salary_range') }}">
-        </p>
-
-        <p>
-           <label>Notes</label><br>
-           <textarea name="notes" rows="4">{{ old('notes') }}</textarea>
-        </p>
-
-        <button type="submit">Save</button>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+            Save
+        </button>
     </form>
 
-    <p><a href="{{ route('applications.index') }}">Back to list</a></p>
-</body>
-</html>
+    <p class="mt-4"><a href="{{ route('applications.index') }}" class="text-gray-600 hover:underline">Back to list</a></p>
+</div>
+
+@endsection

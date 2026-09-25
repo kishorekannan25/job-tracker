@@ -23,7 +23,7 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        return view('applications.create');
+        return view('applications.create', ['application' => new Application()]);
     }
 
     /**
@@ -43,7 +43,8 @@ class ApplicationController extends Controller
 
         Application::create($validated);
 
-        return redirect()->route('applications.index');
+        return redirect()->route('applications.index')
+            ->with('success', 'Application submitted successfully.');
     }
 
     /**
@@ -80,7 +81,8 @@ class ApplicationController extends Controller
 
         $application->update($validated);
 
-        return redirect()->route('applications.index');
+        return redirect()->route('applications.index')
+            ->with('success', 'Application updated successfully.');
     }
 
     /**
@@ -90,6 +92,7 @@ class ApplicationController extends Controller
     {
         $application->delete();
 
-        return redirect()->route('applications.index');
+        return redirect()->route('applications.index')
+            ->with('success', 'Application deleted successfully.');
     }
 }
