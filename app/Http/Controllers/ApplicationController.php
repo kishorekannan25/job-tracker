@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Application;
+use Illuminate\Support\Facades\Gate;
 
 class ApplicationController extends Controller
 {
@@ -12,7 +13,7 @@ class ApplicationController extends Controller
      */
     public function index(Request $request)
     {
-        $applications = Application::query()
+        $applications = $request->user()->applications()
             ->when($request->filled('search'), function ($query) use ($request){
                 $query->where('company', 'like', '%' . $request->search . '%');
         })
@@ -48,7 +49,7 @@ class ApplicationController extends Controller
             'notes'         => 'nullable',
         ]);
 
-        Application::create($validated);
+        $request->user()->applications()->create($validated);
 
         return redirect()->route('applications.index')
             ->with('success', 'Application submitted successfully.');
@@ -57,10 +58,10 @@ class ApplicationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Application $application)
     {
-        $application = Application::findOrFail($id);
-
+        Gate::authorize('view', $application);
+    
         return view('applications.show', compact('application'));
     }
 
@@ -69,6 +70,7 @@ class ApplicationController extends Controller
      */
     public function edit(Application $application)
     {
+        Gate::authorize('update', $application);
         return view('applications.edit', compact('application'));
     }
 
@@ -77,6 +79,8 @@ class ApplicationController extends Controller
      */
     public function update(Request $request, Application $application)
     {
+        Gate::authorize('update', $application);
+
         $validated = $request->validate([
             'company'           => 'required|max:255',
             'role'              => 'required|max:255',
@@ -97,6 +101,8 @@ class ApplicationController extends Controller
      */
     public function destroy(Application $application)
     {
+        Gate::authorize('delete', $application);
+
         $application->delete();
 
         return redirect()->route('applications.index')
