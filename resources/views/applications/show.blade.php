@@ -14,7 +14,7 @@
         <dl class="space-y-3">
             <div>
                 <dt class="text-sm uppercase tracking-wide text-gray-500">Status</dt>
-                <dd>{{ $application->status }}</dd>
+                <dd><x-status-badge :status="$application->status" /></dd>
             </div>
             <div>
                 <dt class="text-sm uppercase tracking-wide text-gray-500">Applied date</dt>

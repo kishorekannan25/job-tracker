@@ -50,14 +50,7 @@
             <li class="bg-white p-4 rounded shadow">
                 <strong>{{ $application->company }}</strong> —
                 {{ $application->role }}
-                <span class="text-xs px-2 py-1 rounded
-                    @if ($application->status === 'offer') bg-green-100 text-green-800
-                    @elseif ($application->status === 'interview') bg-yellow-100 text-yellow-800
-                    @elseif ($application->status === 'rejected') bg-red-100 text-red-800
-                    @else bg-gray-100 text-gray-800
-                    @endif">
-                    {{ $application->status }}
-                </span>
+                <x-status-badge :status="$application->status" />
                 <a href="{{ route('applications.show', $application->id) }}"
                    class="text-blue-600 ml-2">View details</a>
             </li>
