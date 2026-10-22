@@ -38,7 +38,7 @@
 </form>
 
     <div class="flex justify-between items-center mb-4">
-        <p class="text-gray-600">Total: {{ count($applications) }} applications</p>
+        <p class="text-gray-600">Total: {{ $applications->total() }} applications</p>
         <a href="{{ route('applications.create') }}"
            class="bg-blue-600 text-white px-4 py-2 rounded">
             + Add New Application
@@ -62,6 +62,10 @@
                    class="text-blue-600 ml-2">View Details</a>
             </li>
         @endforeach
+    <div class="mt-4">
+        {{ $applications->links() }}
+    </div>
+
     </ul>
 
 </div>
