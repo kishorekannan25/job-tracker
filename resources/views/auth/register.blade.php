@@ -40,7 +40,7 @@
     </div>
 
     <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Confirm password</label>
         <input type="password" name="password_confirmation"
             class="w-full border border-gray-300 rounded px-3 py-2">
     </div>

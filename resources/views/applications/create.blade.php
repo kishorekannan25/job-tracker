@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Add Application')
+@section('title', 'Add application')
 
 @section('content')
 
 <div class="max-w-xl mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-4">Add New Application</h1>
+    <h1 class="text-3xl font-bold mb-4">Add new application</h1>
 
     <form action="{{ route('applications.store') }}" method="POST"
           class="bg-white rounded shadow p-6">

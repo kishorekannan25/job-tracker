@@ -17,11 +17,11 @@
                 <dd>{{ $application->status }}</dd>
             </div>
             <div>
-                <dt class="text-sm uppercase tracking-wide text-gray-500">Applied Date</dt>
+                <dt class="text-sm uppercase tracking-wide text-gray-500">Applied date</dt>
                 <dd>{{ $application->applied_date }}</dd>
             </div>
             <div>
-                <dt class="text-sm uppercase tracking-wide text-gray-500">Salary Range</dt>
+                <dt class="text-sm uppercase tracking-wide text-gray-500">Salary range</dt>
                 <dd>{{ $application->salary_range ?: '—' }}</dd>
             </div>
             <div>

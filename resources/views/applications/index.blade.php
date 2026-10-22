@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'My Applications')
+@section('title', 'My applications')
 
 @section('content')
 
 <div class="max-w-3xl mx-auto p-6">
 
-    <h1 class="text-3xl font-bold mb-4">My Job Applications</h1>
+    <h1 class="text-3xl font-bold mb-4">My job applications</h1>
 
     @if (session('success'))
         <p class="bg-green-100 text-green-800 p-3 rounded mb-4">
@@ -20,11 +20,11 @@
             class="flex-1 border border-gray-300 rounded px-3 py-2">
 
     <select name="status" class="border border-gray-300 rounded px-3 py-2">
-        <option value=""> All statuses</option>
-        <option value="applied" @selected(request ('status') === 'applied')>Applied</option>
-        <option value="interview" @selected(request ('status') === 'interview')>Interview</option>
-        <option value="offer" @selected(request ('status') === 'offer')>Offer</option>
-        <option value="rejected" @selected(request ('status') === 'rejected')>Rejected</option>
+        <option value="">All statuses</option>
+        <option value="applied" @selected(request('status') === 'applied')>Applied</option>
+        <option value="interview" @selected(request('status') === 'interview')>Interview</option>
+        <option value="offer" @selected(request('status') === 'offer')>Offer</option>
+        <option value="rejected" @selected(request('status') === 'rejected')>Rejected</option>
     </select>
 
     <button type="submit" class="bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded">
@@ -41,7 +41,7 @@
         <p class="text-gray-600">Total: {{ $applications->total() }} applications</p>
         <a href="{{ route('applications.create') }}"
            class="bg-blue-600 text-white px-4 py-2 rounded">
-            + Add New Application
+            + Add new application
         </a>
     </div>
 
@@ -59,7 +59,7 @@
                     {{ $application->status }}
                 </span>
                 <a href="{{ route('applications.show', $application->id) }}"
-                   class="text-blue-600 ml-2">View Details</a>
+                   class="text-blue-600 ml-2">View details</a>
             </li>
         @endforeach
     <div class="mt-4">

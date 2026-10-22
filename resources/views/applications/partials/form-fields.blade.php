@@ -31,13 +31,13 @@
 </div>
 
 <div class="mb-4">
-    <label class="block text-sm font-medium text-gray-700 mb-1">Applied Date</label>
+    <label class="block text-sm font-medium text-gray-700 mb-1">Applied date</label>
     <input type="date" name="applied_date" value="{{ old('applied_date', $application->applied_date) }}"
            class="w-full border border-gray-300 rounded px-3 py-2">
 </div>
 
 <div class="mb-4">
-    <label class="block text-sm font-medium text-gray-700 mb-1">Salary Range</label>
+    <label class="block text-sm font-medium text-gray-700 mb-1">Salary range</label>
     <input type="text" name="salary_range" value="{{ old('salary_range', $application->salary_range) }}"
            class="w-full border border-gray-300 rounded px-3 py-2">
 </div>

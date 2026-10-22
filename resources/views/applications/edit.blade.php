@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Application')
+@section('title', 'Edit application')
 
 @section('content')
 
 <div class="max-w-xl mx-auto p-6">
 
-    <h1 class="text-3xl font-bold mb-4">Edit Application</h1>
+    <h1 class="text-3xl font-bold mb-4">Edit application</h1>
 
     <form action="{{ route('applications.update', $application->id) }}" method="POST"
           class="bg-white rounded shadow p-6">
