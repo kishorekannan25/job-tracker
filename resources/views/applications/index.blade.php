@@ -47,14 +47,23 @@
 
     <ul class="space-y-2">
         @foreach ($applications as $application)
-            <li class="bg-white p-4 rounded shadow">
-                <strong>{{ $application->company }}</strong> —
-                {{ $application->role }}
-                <x-status-badge :status="$application->status" />
+            <li>
                 <a href="{{ route('applications.show', $application->id) }}"
-                   class="text-blue-600 ml-2">View details</a>
+                    class="flex justify-between items-center bg-white p-4 rounded shadow hover:shadow-md hover:bg-gray-50 transition">
+
+                    <div>
+                        <p class="font-semibold">{{ $application->company }}</p>
+                        <p class="text-sm text-gray-600">{{ $application->role }}</p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm text-gray-500">{{ $application->applied_date->format('j M Y') }}</span>
+                        <x-status-badge :status="$application->status" />
+                    </div>
+                </a>
             </li>
         @endforeach
+    </ul>
     <div class="mt-4">
         {{ $applications->links() }}
     </div>
