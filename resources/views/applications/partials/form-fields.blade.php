@@ -32,7 +32,8 @@
 
 <div class="mb-4">
     <label class="block text-sm font-medium text-gray-700 mb-1">Applied date</label>
-    <input type="date" name="applied_date" value="{{ old('applied_date', $application->applied_date) }}"
+    <input type="date" name="applied_date"
+           value="{{ old('applied_date', $application->applied_date?->format('Y-m-d')) }}"
            class="w-full border border-gray-300 rounded px-3 py-2">
 </div>
 

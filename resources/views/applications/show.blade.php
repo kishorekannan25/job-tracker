@@ -18,7 +18,7 @@
             </div>
             <div>
                 <dt class="text-sm uppercase tracking-wide text-gray-500">Applied date</dt>
-                <dd>{{ $application->applied_date }}</dd>
+                <dd>{{ $application->applied_date->format('j M Y') }}</dd>
             </div>
             <div>
                 <dt class="text-sm uppercase tracking-wide text-gray-500">Salary range</dt>

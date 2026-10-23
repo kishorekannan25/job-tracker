@@ -18,6 +18,13 @@ class Application extends Model
         'notes',
     ];
 
+    protected function casts(): array 
+    {
+        return [
+            'applied_date' => 'date',
+        ];
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
