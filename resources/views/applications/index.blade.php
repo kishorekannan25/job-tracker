@@ -35,7 +35,7 @@
         <a href="{{ route('applications.index') }}"
             class="px-4 py-2 text-gray-600 hover:underline">Clear</a>
     @endif
-</form>
+    </form>
 
     <div class="flex justify-between items-center mb-4">
         <p class="text-gray-600">Total: {{ $applications->total() }} applications</p>
@@ -46,7 +46,7 @@
     </div>
 
     <ul class="space-y-2">
-        @foreach ($applications as $application)
+        @forelse ($applications as $application)
             <li>
                 <a href="{{ route('applications.show', $application->id) }}"
                     class="flex justify-between items-center bg-white p-4 rounded shadow hover:shadow-md hover:bg-gray-50 transition">
@@ -62,13 +62,21 @@
                     </div>
                 </a>
             </li>
-        @endforeach
+        @empty
+        <li class="bg-white p-8 rounded shadow text-center text-gray-500">
+            @if (request('search') || request('status'))
+                No applications match your filters.
+                <a href="{{ route('applications.index') }}" class="text-blue-600 hover:underline">Clear filters</a>
+            @else
+                You haven't added any applications yet.
+                <a href="{{ route('applications.create') }}" class="text-blue-600 hover:underline">Add your first one</a>
+            @endif
+        </li>
+        @endforelse
     </ul>
     <div class="mt-4">
         {{ $applications->links() }}
     </div>
-
-    </ul>
 
 </div>
 
