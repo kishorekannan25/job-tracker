@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Application;
 use Illuminate\Support\Facades\Gate;
+use App\Enums\ApplicationStatus;
+use Illuminate\Validation\Rule;
 
 class ApplicationController extends Controller
 {
@@ -43,7 +45,7 @@ class ApplicationController extends Controller
         $validated = $request->validate([
             'company'       => 'required|max:255',
             'role'          => 'required|max:255',
-            'status'        => 'required|in:applied,interview,offer,rejected',
+            'status'        => ['required', Rule::enum(ApplicationStatus::class)],
             'applied_date'  => 'required|date',
             'salary_range'  => 'nullable|max:255',
             'notes'         => 'nullable',
