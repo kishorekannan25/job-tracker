@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\ApplicationStatus;
 
 class Application extends Model
 {
@@ -22,6 +23,7 @@ class Application extends Model
     {
         return [
             'applied_date' => 'date',
+            'status' => ApplicationStatus::class,
         ];
     }
 
