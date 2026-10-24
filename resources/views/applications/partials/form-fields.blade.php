@@ -23,10 +23,11 @@
 <div class="mb-4">
     <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
     <select name="status" class="w-full border border-gray-300 rounded px-3 py-2">
-        <option value="applied"   @selected(old('status', $application->status) === 'applied')>Applied</option>
-        <option value="interview" @selected(old('status', $application->status) === 'interview')>Interview</option>
-        <option value="offer"     @selected(old('status', $application->status) === 'offer')>Offer</option>
-        <option value="rejected"  @selected(old('status', $application->status) === 'rejected')>Rejected</option>
+        @foreach (\App\Enums\ApplicationStatus::cases() as $status)
+            <option value="{{ $status->value }}" @selected(old('status', $application->status) === $status->value)>
+                {{ $status->label() }}
+            </option>
+        @endforeach
     </select>
 </div>
 

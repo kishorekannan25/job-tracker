@@ -21,10 +21,11 @@
 
     <select name="status" class="border border-gray-300 rounded px-3 py-2">
         <option value="">All statuses</option>
-        <option value="applied" @selected(request('status') === 'applied')>Applied</option>
-        <option value="interview" @selected(request('status') === 'interview')>Interview</option>
-        <option value="offer" @selected(request('status') === 'offer')>Offer</option>
-        <option value="rejected" @selected(request('status') === 'rejected')>Rejected</option>
+        @foreach (\App\Enums\ApplicationStatus::cases() as $status)
+            <option value="{{ $status->value }}" @selected(request('status') === $status->value)>
+                {{ $status->label() }}
+            </option>
+        @endforeach
     </select>
 
     <button type="submit" class="bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded">
