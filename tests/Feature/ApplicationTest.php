@@ -36,9 +36,9 @@ class ApplicationTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)->post('/applications', [
-            'company'      => 'Petronas Digital',
-            'role'         => 'Junior Developer',
-            'status'       => 'applied',
+            'company' => 'Petronas Digital',
+            'role' => 'Junior Developer',
+            'status' => 'applied',
             'applied_date' => '2026-10-14',
         ])->assertRedirect('/applications');
 
@@ -53,9 +53,9 @@ class ApplicationTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)->post('/applications', [
-            'company'      => '',
-            'role'         => 'Developer',
-            'status'       => 'applied',
+            'company' => '',
+            'role' => 'Developer',
+            'status' => 'applied',
             'applied_date' => '2026-10-14',
         ])->assertSessionHasErrors('company');
 
@@ -68,7 +68,7 @@ class ApplicationTest extends TestCase
         $intruder = User::factory()->create();
 
         $this->actingAs($intruder)
-            ->get('/applications/' . $application->id)
+            ->get('/applications/'.$application->id)
             ->assertForbidden();
     }
 
@@ -78,7 +78,7 @@ class ApplicationTest extends TestCase
         $intruder = User::factory()->create();
 
         $this->actingAs($intruder)
-            ->delete('/applications/' . $application->id)
+            ->delete('/applications/'.$application->id)
             ->assertForbidden();
 
         $this->assertDatabaseHas('applications', ['id' => $application->id]);

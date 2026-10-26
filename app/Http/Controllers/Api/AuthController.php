@@ -19,7 +19,7 @@ class AuthController extends Controller
         $user = User::where('email', $credentials['email'])->first();
 
         if (! $user || ! Hash::check($credentials['password'], $user->password)) {
-            return response()->json(['message'=> 'These credentials do not match our records.'], 401);
+            return response()->json(['message' => 'These credentials do not match our records.'], 401);
         }
 
         $token = $user->createToken('api')->plainTextToken;

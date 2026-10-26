@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApplicationRequest;
 use App\Http\Resources\ApplicationResource;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use App\Http\Requests\ApplicationRequest;
 
 class ApplicationController extends Controller
 {
@@ -49,5 +49,4 @@ class ApplicationController extends Controller
 
         return response()->noContent();
     }
-
 }

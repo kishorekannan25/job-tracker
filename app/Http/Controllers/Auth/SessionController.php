@@ -15,14 +15,14 @@ class SessionController extends Controller
 
     public function store(Request $request)
     {
-        $credentials= $request->validate([
-            'email'=> 'required|email',
-            'password'=> 'required',
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        if (! Auth::attempt($credentials)){
+        if (! Auth::attempt($credentials)) {
             return back()->withErrors([
-                'email'=>'Those credentials do not match our records.',
+                'email' => 'Those credentials do not match our records.',
             ])->onlyInput('email');
         }
 

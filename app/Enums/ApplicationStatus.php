@@ -14,10 +14,9 @@ enum ApplicationStatus: string
         return ucfirst($this->value);
     }
 
-    public function color():string
+    public function color(): string
     {
-        return match ($this)
-        {
+        return match ($this) {
             self::Offer => 'bg-green-100 text-green-800',
             self::Interview => 'bg-yellow-100 text-yellow-800',
             self::Rejected => 'bg-red-100 text-red-800',

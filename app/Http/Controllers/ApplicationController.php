@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Application;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\ApplicationRequest;
+use App\Models\Application;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ApplicationController extends Controller
 {
@@ -15,17 +15,17 @@ class ApplicationController extends Controller
     public function index(Request $request)
     {
         $applications = $request->user()->applications()
-            ->when($request->filled('search'), function ($query) use ($request){
-                $query->where('company', 'like', '%' . $request->search . '%');
-        })
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $query->where('company', 'like', '%'.$request->search.'%');
+            })
 
             ->when($request->filled('status'), function ($query) use ($request) {
                 $query->where('status', $request->status);
-        })
-        ->latest('applied_date')
-        ->paginate(10)->withQueryString();
+            })
+            ->latest('applied_date')
+            ->paginate(10)->withQueryString();
 
-    return view('applications.index', compact('applications'));
+        return view('applications.index', compact('applications'));
     }
 
     /**
@@ -33,7 +33,7 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        return view('applications.create', ['application' => new Application()]);
+        return view('applications.create', ['application' => new Application]);
     }
 
     /**
@@ -53,7 +53,7 @@ class ApplicationController extends Controller
     public function show(Application $application)
     {
         Gate::authorize('view', $application);
-    
+
         return view('applications.show', compact('application'));
     }
 
@@ -63,6 +63,7 @@ class ApplicationController extends Controller
     public function edit(Application $application)
     {
         Gate::authorize('update', $application);
+
         return view('applications.edit', compact('application'));
     }
 

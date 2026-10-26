@@ -2,11 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Enums\ApplicationStatus;
 use App\Models\Application;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Enums\ApplicationStatus;
-
 
 /**
  * @extends Factory<Application>
@@ -21,13 +20,13 @@ class ApplicationFactory extends Factory
     public function definition(): array
     {
         return [
-        'user_id'      => User::factory(),
-        'company'      => fake()->company(),
-        'role'         => fake()->jobTitle(),
-        'status'       => fake()->randomElement(ApplicationStatus::cases()),
-        'applied_date' => fake()->dateTimeBetween('-3 months')->format('Y-m-d'),
-        'salary_range' => 'RM' . fake()->numberBetween(3, 8) . '000',
-        'notes'        => fake()->sentence(),
+            'user_id' => User::factory(),
+            'company' => fake()->company(),
+            'role' => fake()->jobTitle(),
+            'status' => fake()->randomElement(ApplicationStatus::cases()),
+            'applied_date' => fake()->dateTimeBetween('-3 months')->format('Y-m-d'),
+            'salary_range' => 'RM'.fake()->numberBetween(3, 8).'000',
+            'notes' => fake()->sentence(),
         ];
 
     }

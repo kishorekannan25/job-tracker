@@ -16,12 +16,12 @@ class ApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'company'      => 'required|max:255',
-            'role'         => 'required|max:255',
-            'status'       => ['required', Rule::enum(ApplicationStatus::class)],
+            'company' => 'required|max:255',
+            'role' => 'required|max:255',
+            'status' => ['required', Rule::enum(ApplicationStatus::class)],
             'applied_date' => 'required|date',
             'salary_range' => 'nullable|max:255',
-            'notes'        => 'nullable',
+            'notes' => 'nullable',
         ];
     }
 }
