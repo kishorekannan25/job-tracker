@@ -13,7 +13,7 @@ class ApplicationController extends Controller
 {
     public function index(Request $request)
     {
-        $applications = $request->user()->applications()->paginate(10);
+        $applications = $request->user()->applications()->latest('applied_date')->paginate(10);
 
         return ApplicationResource::collection($applications);
     }

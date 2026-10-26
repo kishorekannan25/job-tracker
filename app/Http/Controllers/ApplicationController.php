@@ -22,6 +22,7 @@ class ApplicationController extends Controller
             ->when($request->filled('status'), function ($query) use ($request) {
                 $query->where('status', $request->status);
         })
+        ->latest('applied_date')
         ->paginate(10)->withQueryString();
 
     return view('applications.index', compact('applications'));
