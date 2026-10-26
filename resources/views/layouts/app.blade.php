@@ -10,8 +10,11 @@
             <div class="max-w-3xl mx-auto px-6 py-3 flex justify-between items-center">
 
                 <div class="flex items-center gap-6">
-                    <a href="{{ route('applications.index') }}" class="font-bold">Job Tracker</a>
-
+                    <a href="{{ route('dashboard') }}" class="font-bold">Job Tracker</a>
+                    <a href="{{ route('dashboard') }}"
+                        class="text-sm {{ request()->routeIs('dashboard') ? 'text-blue-600 font-medium' : 'text-gray-600 hover:text-gray-900' }}">
+                            Dashboard
+                    </a>
                     <a href="{{ route('applications.index') }}"
                         class="text-sm {{ request()->routeIs('applications.*') ? 'text-blue-600 font-medium' : 'text-gray-600 hover:text-gray-900' }}">
                             Applications

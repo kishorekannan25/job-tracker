@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
-    return redirect()->route(auth()->check() ? 'applications.index' : 'login');
+    return redirect()->route(auth()->check() ? 'dashboard' : 'login');
 });
 
 Route::resource('applications', ApplicationController::class)->middleware('auth');
