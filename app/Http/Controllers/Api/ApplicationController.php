@@ -7,6 +7,7 @@ use App\Http\Resources\ApplicationResource;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\ApplicationRequest;
 
 class ApplicationController extends Controller
 {
@@ -23,4 +24,30 @@ class ApplicationController extends Controller
 
         return new ApplicationResource($application);
     }
+
+    public function store(ApplicationRequest $request)
+    {
+        $application = $request->user()->applications()->create($request->validated());
+
+        return new ApplicationResource($application);
+    }
+
+    public function update(ApplicationRequest $request, Application $application)
+    {
+        Gate::authorize('update', $application);
+
+        $application->update($request->validated());
+
+        return new ApplicationResource($application);
+    }
+
+    public function destroy(Application $application)
+    {
+        Gate::authorize('delete', $application);
+
+        $application->delete();
+
+        return response()->noContent();
+    }
+
 }
