@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $counts = $request->user()->applications()
             ->selectRaw('status, count(*) as total')
             ->groupBy('status')
