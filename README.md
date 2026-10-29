@@ -16,7 +16,10 @@ Built with Laravel 13, Tailwind CSS and MySQL.
 - **Authorization**: a policy blocks users from viewing, editing or deleting records they
   don't own, including by typing the URL directly. The web app and the API share it.
 - **Full CRUD**: add, view, edit and delete job applications
-- **Dashboard**: a count of applications per status. Each card links to the filtered list.
+- **Dashboard**: a count of applications per status, with each card linking to the filtered
+  list, and your next five upcoming interviews
+- **Interview dates**: an optional interview date and time on each application, shown on its
+  detail page
 - **Status tracking**: applied / interview / offer / rejected, with colour-coded badges. The
   statuses are defined once, in a PHP enum.
 - **Search and filter**: search by company, filter by status, or combine both. Filters
@@ -27,7 +30,8 @@ Built with Laravel 13, Tailwind CSS and MySQL.
 - **REST API**: log in for a token, then list, view, create, update and delete applications
   as JSON (see [API](#api) below)
 
-Each application records the company, role, status, date applied, salary range and free-text notes.
+Each application records the company, role, status, date applied, interview date, salary range
+and free-text notes.
 
 ## Screenshots
 
@@ -84,7 +88,7 @@ curl -H "Accept: application/json" \
 
 `POST` and `PUT` take the same fields as the web form: `company`, `role`, `status`
 (`applied`, `interview`, `offer` or `rejected`), `applied_date` (`YYYY-MM-DD`), and the optional
-`salary_range` and `notes`.
+`interview_at` (a date and time), `salary_range` and `notes`.
 
 An application looks like this:
 
@@ -96,6 +100,7 @@ An application looks like this:
     "role": "Software Engineer, Backend",
     "status": "interview",
     "applied_date": "2026-10-14",
+    "interview_at": "2026-11-03T14:00:00+08:00",
     "salary_range": "RM7000-9000",
     "notes": "Referred by a former colleague...",
     "created_at": "2026-10-14T07:13:39.000000Z"
@@ -165,10 +170,11 @@ Open http://localhost:8000, register an account, and you're in.
 php artisan test
 ```
 
-14 feature tests cover:
+15 feature tests cover:
 
 - **Web app**: authentication, per-user data scoping, validation and the authorization policy
-- **Dashboard**: guests are redirected, and counts include only the logged-in user's applications
+- **Dashboard**: guests are redirected, counts include only the logged-in user's applications,
+  and upcoming interviews leave out past interviews and other users' interviews
 - **API**: token login, wrong passwords, unauthenticated requests, per-user listing, creating
   an application, and blocking updates to another user's record
 
@@ -184,7 +190,7 @@ every push.
 | `app/Models/Application.php` | The Eloquent model, with its owner and its date and status casts |
 | `app/Models/User.php` | `hasMany` applications, and Sanctum's `HasApiTokens` |
 | `app/Http/Controllers/ApplicationController.php` | The web app's seven RESTful actions |
-| `app/Http/Controllers/DashboardController.php` | Counts per status in one grouped query |
+| `app/Http/Controllers/DashboardController.php` | Counts per status in one grouped query, and upcoming interviews |
 | `app/Http/Controllers/Auth/` | Registration and session (login/logout) controllers |
 | `app/Http/Controllers/Api/` | API login/logout and the API's application actions |
 | `app/Http/Requests/ApplicationRequest.php` | Validation rules shared by web and API |
@@ -207,6 +213,11 @@ myself, including the controllers, models, migrations, views, policy and tests, 
 time, running each change in the browser before moving on. The rest is Laravel's own
 scaffolding, and this README was drafted with the assistant's help.
 
+For the most recent feature, interview dates, I worked from requirements and hints instead of
+step-by-step code: I read the Laravel docs, wrote the migration, form, views and query myself,
+and fixed my own bugs along the way. Its dashboard test was written by the assistant, and I
+reviewed it and explained back what it checks.
+
 The point was to come out of it able to read and debug Laravel, not just to end up with
 working code. A fair amount of the learning came from the mistakes: a misspelled `$request->`
 property that silently dropped data, a validation rule with a stray space in it that made one
@@ -220,12 +231,13 @@ spoofing for PUT and DELETE, server-side validation and Form Requests, route mod
 query building with `when()`, aggregate queries with `groupBy`, authentication, foreign keys
 and relationships, authorization policies, PHP enums and model casts, pagination, REST APIs
 with Sanctum tokens and API Resources, feature testing, styling with Tailwind, code formatting
-with Pint, and continuous integration with GitHub Actions.
+with Pint, continuous integration with GitHub Actions, and date-time handling, including
+setting the app's timezone after spotting that interview times came out in UTC.
 
 ## Possible next steps
 
 - Deploying it somewhere public
-- Interview dates, with an "upcoming interviews" section on the dashboard
-- Email reminders to follow up on applications with no reply
+- Email reminders the day before an interview, and to follow up on applications with no reply
+- Showing the interview date field only for statuses where it applies
 - File uploads for CVs and cover letters
 - Email verification on registration
