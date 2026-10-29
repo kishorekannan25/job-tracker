@@ -20,6 +20,12 @@
                 <dt class="text-sm uppercase tracking-wide text-gray-500">Applied date</dt>
                 <dd>{{ $application->applied_date->format('j M Y') }}</dd>
             </div>
+        @if ($application->interview_at)
+            <div>
+                <dt class="text-sm uppercase tracking-wide text-gray-500">Interview date</dt>
+                <dd>{{ $application->interview_at->format('j M Y, g:i A') }}</dd>
+            </div>
+        @endif
             <div>
                 <dt class="text-sm uppercase tracking-wide text-gray-500">Salary range</dt>
                 <dd>{{ $application->salary_range ?: '—' }}</dd>

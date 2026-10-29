@@ -18,6 +18,23 @@
             </a>
         @endforeach
     </div>
+
+    <h2 class="text-xl font-bold mt-8 mb-4">Upcoming interviews</h2>
+
+    @forelse ($upcomingInterviews as $application)
+        <a href="{{ route('applications.show', $application) }}"
+            class="block bg-white rounded shadow p-4 mb-2 hover:shadow-md transition">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="font-semibold">{{ $application->company }}</p>
+                    <p class="text-sm text-gray-600">{{ $application->role }}</p>
+                </div>
+                <p class="text-sm text-gray-600">{{ $application->interview_at->format('j M Y, g:i A') }}</p>
+            </div>
+        </a>
+    @empty
+        <p class="text-gray-600">No upcoming interviews.</p>
+    @endforelse
 </div>
 
 @endsection

@@ -22,6 +22,7 @@ class ApplicationRequest extends FormRequest
             'applied_date' => 'required|date',
             'salary_range' => 'nullable|max:255',
             'notes' => 'nullable',
+            'interview_at' => 'nullable|date',
         ];
     }
 }

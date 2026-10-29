@@ -39,6 +39,13 @@
 </div>
 
 <div class="mb-4">
+    <label class="block text-sm font-medium text-gray-700 mb-1">Interview date</label>
+    <input type="datetime-local" name="interview_at"
+            value="{{ old('interview_at', $application->interview_at?->format('Y-m-d\TH:i')) }}"
+            class="w-full border border-gray-300 rounded px-3 py-2">
+</div>
+
+<div class="mb-4">
     <label class="block text-sm font-medium text-gray-700 mb-1">Salary range</label>
     <input type="text" name="salary_range" value="{{ old('salary_range', $application->salary_range) }}"
            class="w-full border border-gray-300 rounded px-3 py-2">

@@ -17,6 +17,7 @@ class Application extends Model
         'applied_date',
         'salary_range',
         'notes',
+        'interview_at',
     ];
 
     protected function casts(): array
@@ -24,6 +25,7 @@ class Application extends Model
         return [
             'applied_date' => 'date',
             'status' => ApplicationStatus::class,
+            'interview_at' => 'datetime',
         ];
     }
 

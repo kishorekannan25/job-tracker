@@ -15,6 +15,12 @@ class DashboardController extends Controller
 
         $total = $counts->sum();
 
-        return view('dashboard', compact('counts', 'total'));
+        $upcomingInterviews = $request->user()->applications()
+            ->where('interview_at', '>', now())
+            ->oldest('interview_at')
+            ->limit(5)
+            ->get();
+
+        return view('dashboard', compact('counts', 'total', 'upcomingInterviews'));
     }
 }

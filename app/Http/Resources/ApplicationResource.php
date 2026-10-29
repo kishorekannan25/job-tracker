@@ -23,6 +23,7 @@ class ApplicationResource extends JsonResource
             'salary_range' => $this->salary_range,
             'notes' => $this->notes,
             'created_at' => $this->created_at,
+            'interview_at' => $this->interview_at?->toIso8601String(),
         ];
     }
 }

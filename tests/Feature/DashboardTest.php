@@ -35,4 +35,30 @@ class DashboardTest extends TestCase
                 && ! isset($counts['rejected']);
         });
     }
+
+    public function test_dashboard_shows_only_my_future_interviews(): void
+    {
+        $me = User::factory()->create();
+        $someoneElse = User::factory()->create();
+
+        Application::factory()->for($me)->create([
+            'company' => 'Future Company',
+            'interview_at' => now()->addDays(3),
+        ]);
+        Application::factory()->for($me)->create([
+            'company' => 'Past Company',
+            'interview_at' => now()->subDays(3),
+        ]);
+        Application::factory()->for($someoneElse)->create([
+            'company' => 'Their Company',
+            'interview_at' => now()->addDays(3),
+        ]);
+
+        $response = $this->actingAs($me)->get('/dashboard');
+
+        $response->assertOk();
+        $response->assertSee('Future Company');
+        $response->assertDontSee('Past Company');
+        $response->assertDontSee('Their Company');
+    }
 }
